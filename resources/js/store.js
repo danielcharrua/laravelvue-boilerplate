@@ -45,12 +45,12 @@ const store = new Vuex.Store({
     },
     destroyToken(context) {
 
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
-
       if (context.getters.loggedIn) {
 
         return new Promise((resolve, reject) => {
-          axios.post('/api/logout')
+          axios.post('/api/logout', '', {
+              headers: { Authorization: "Bearer " + context.state.token }
+            })
             .then(response => {
               //console.log(response)
               localStorage.removeItem('access_token')
